@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = this.GetComponent<Rigidbody>(); 
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
         if (ctx.started)
         {
             
+
         }
     }
 }
