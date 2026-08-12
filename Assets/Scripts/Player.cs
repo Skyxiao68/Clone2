@@ -3,12 +3,13 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody rb; 
+    private Rigidbody2D rb; 
+    public float velocity = 1.5f; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>(); 
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -20,9 +21,9 @@ public class Player : MonoBehaviour
     public void Jump(InputAction.CallbackContext ctx)
     {
         print(ctx); 
-        if (ctx.started)
+        if (ctx.performed)
         {
-            
+            rb.linearVelocity = Vector2.up * velocity; ;
 
         }
     }
