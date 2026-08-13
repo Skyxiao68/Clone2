@@ -2,29 +2,58 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-   public Transform player; 
-   public Vector3 offset = new Vector3(0, 2, 0);
-   public bool smoothFollow = true;
-   public float smoothSpeed = 0.125f;
+  public Transform player; 
 
-   void LateUpdate()
-   {
-       if (player == null)
-       {
-           return; 
-       }
+  public float xOffset = 0f; 
 
-       Vector3 desiredPosition = player.position + offset; 
+  public bool lockY = true; 
+  public float fixedY = 0f;
 
-       if (smoothFollow)
-       {
-           Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed); 
-           transform.position = smoothedPosition; 
-       }
-       else
-       {
-           transform.position = desiredPosition; 
-       }
-   } 
+  public bool useSmoothFollow = false;
+  public float smoothSpeed = 10f; 
+
+  private float initialY; 
+
+  void Start()
+  {
+    initialY = transform.position.y;
+    if (!lockY)
+        {
+            initialY = fixedY;
+        }
+  }
+
+  void LateUpdate()
+    {
+        if (player == null)
+        {
+            Debug.LogWarning("Player Transform is not assigned in FollowPlayer script.");
+            return;
+        }
+    
+
+        float playerX = player.position.x + xOffset;
+
+        Vector3 newPos = transform.position;
+
+
+        newPos.x = playerX;
+        newPos.y = initialY; 
+
+        if (useSmoothFollow)
+        {
+
+            newPos.x = Mathf.Lerp(transform.position.x, playerX, smoothSpeed * Time.deltaTime);
+        }
+
+        transform.position = newPos; 
+   }
+
+   void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Vector3 gizmoPos = new Vector3(player.position.x + xOffset, transform.position.y, transform.position.z);
+        Gizmos.DrawWireSphere(gizmoPos, 0.5f);
+    }
 }
-   
+    
