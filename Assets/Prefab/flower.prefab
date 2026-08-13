@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9180364170949458151}
   - component: {fileID: 6968099676446712839}
   - component: {fileID: 8078215226543257174}
-  - component: {fileID: 4053407939191340248}
   m_Layer: 0
   m_Name: flower
   m_TagString: Untagged
@@ -163,19 +162,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.0028846397, y: -0.7716867}
   m_Radius: 0.22569682
---- !u!114 &4053407939191340248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668670207124109214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869ebf97550e6ff478b0879d2b121d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
 --- !u!1 &5214772233369648620
 GameObject:
   m_ObjectHideFlags: 0

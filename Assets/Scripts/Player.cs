@@ -5,6 +5,9 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rb; 
     public float velocity = 1.5f; 
+    public float speed = 0.5f; 
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,7 +19,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    
+        transform.position += Vector3.right * speed * Time.deltaTime; 
     }
+
+    
 
     public void Jump(InputAction.CallbackContext ctx)
     {
