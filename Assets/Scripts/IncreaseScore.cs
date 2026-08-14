@@ -5,6 +5,8 @@ public class IncreaseScore : MonoBehaviour
 {
 
     public float f = 1f;
+    public int normalScore = 1;
+    public int bonusScore = 2; 
     private float failXposition;
     private bool collected = false;
 
@@ -57,9 +59,25 @@ public class IncreaseScore : MonoBehaviour
         {
             collected = true;
 
+            int scoreToAdd = normalScore;
+
+            if (PedalColliderMarker.HasTouchedPedal)
+            {
+                scoreToAdd = normalScore;
+
+                PedalColliderMarker.HasTouchedPedal = false; 
+                Debug.Log("Player touched pedal add only 1 point"); 
+
+            }
+            else
+            {
+                scoreToAdd = bonusScore; 
+                Debug.Log("Player did not touch pedal add bonus points"); 
+            }
+
             if (Score.Instance != null)
             {
-                Score.Instance.AddScore(); 
+                Score.Instance.AddScore(scoreToAdd); 
             }
             else
             {

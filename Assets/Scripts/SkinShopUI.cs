@@ -17,6 +17,18 @@ public class SkinShopUI : MonoBehaviour
 
     public void RefreshShop()
     {
+        if (buttonContainer == null)
+        {
+            Debug.LogError("Button Container not set!", this);
+            return;
+        }
+        if (skinButtonPrefab == null)
+        {
+            Debug.LogError("Skin Button Prefab not set!", this);
+            return; 
+        }
+        
+
         if (currencyText != null && CurrencyManager.Instance != null)
         {
             currencyText.text = "Currency: " + CurrencyManager.Instance.TotalCurrency.ToString();
@@ -43,6 +55,7 @@ public class SkinShopUI : MonoBehaviour
 
     public void OnBuyButtonClicked(string skinId)
     {
+        
         bool success = SkinManager.Instance.TryBuySkin(skinId);
 
         if (success)

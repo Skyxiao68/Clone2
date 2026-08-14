@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 9180364170949458151}
   - component: {fileID: 6968099676446712839}
   - component: {fileID: 8078215226543257174}
+  - component: {fileID: 722237116049143975}
+  - component: {fileID: 3294311447039413685}
   m_Layer: 0
   m_Name: flower
   m_TagString: Untagged
@@ -78,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,6 +164,45 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.0028846397, y: -0.7716867}
   m_Radius: 0.22569682
+--- !u!114 &722237116049143975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668670207124109214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c61c2ff29b70804baa94e3d8fb5b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &3294311447039413685
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668670207124109214}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5214772233369648620
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +214,7 @@ GameObject:
   - component: {fileID: 7780010454386120794}
   - component: {fileID: 428372466723510140}
   - component: {fileID: 5173315819109021280}
+  - component: {fileID: 992553380013978663}
   m_Layer: 0
   m_Name: ScoreCollider
   m_TagString: Untagged
@@ -254,4 +296,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: 1.5
+  normalScore: 1
+  bonusScore: 2
   flower: {fileID: 1668670207124109214}
+--- !u!50 &992553380013978663
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214772233369648620}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

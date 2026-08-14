@@ -41,9 +41,9 @@ public class Score : MonoBehaviour
         }
     }
 
-    public void AddScore()
+    public void AddScore( int amount)
     {
-        score++; 
+        score += amount; 
         scoreText.text = "Score: " + score.ToString();
         UpdateHighScore(); 
     }

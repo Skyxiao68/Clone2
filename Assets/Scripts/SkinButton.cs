@@ -17,6 +17,12 @@ public class SkinButton : MonoBehaviour
         skinID = skin.id;
         shopUI = ui;
 
+        if(nameText == null || priceText == null || buyButton == null || selectButton == null)
+        {
+            Debug.LogError($"skinButton not fully assgined please check {gameObject.name} for all components");
+            return; 
+        }
+
         nameText.text = skin.displayName;
 
         if (skin.isUnlocked)
@@ -34,7 +40,7 @@ public class SkinButton : MonoBehaviour
 
             priceText.text = skin.price.ToString();
 
-            buyButton.interactable = (CurrencyManager.Instance.TotalCurrency >= skin.price);
+            buyButton.interactable = (CurrencyManager.Instance != null && CurrencyManager.Instance.TotalCurrency >= skin.price);
         }
     }
 
