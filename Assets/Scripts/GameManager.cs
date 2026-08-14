@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; 
 
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject gameStartUI; 
+    [SerializeField] private GameObject shopUI; 
+
+    private bool gameStarted = false; 
+    private bool gamePaused = false; 
 
 
     void Start()
@@ -16,6 +21,8 @@ public class GameManager : MonoBehaviour
         {
             gameOverUI.SetActive(false);
         }
+
+        
     }
    private void Awake()
     {
@@ -25,6 +32,8 @@ public class GameManager : MonoBehaviour
 
             
         }
+
+        
 
         Time.timeScale = 1f;
 
