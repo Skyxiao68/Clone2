@@ -3,6 +3,11 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
+
+    public int CurrentScore
+    {
+        get { return score; }
+    }
     public static Score Instance;
 
     [SerializeField] private TMP_Text scoreText;
