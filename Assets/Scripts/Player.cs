@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        print(ctx); 
+         
         if (ctx.performed)
         {
             rb.linearVelocity = Vector2.up * velocity; ;

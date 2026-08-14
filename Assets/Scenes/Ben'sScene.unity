@@ -287,9 +287,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 140283545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 315, y: 267}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -329, y: -58}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12565568
@@ -522,7 +522,7 @@ Transform:
   m_GameObject: {fileID: 205925772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8287157, y: 1.5309376, z: -8.448566}
+  m_LocalPosition: {x: 0, y: 0, z: -8.448566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 585901679}
   - component: {fileID: 585901678}
   - component: {fileID: 585901677}
+  - component: {fileID: 585901680}
   m_Layer: 0
   m_Name: Sky
   m_TagString: Death
@@ -791,13 +792,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585901676}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.09, y: 4.46, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.069999695, y: 4.46, z: 8.402499}
+  m_LocalScale: {x: 20, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &585901680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585901676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efba40d5a7222d348aa5a9ab7b296b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 644106387}
+  xOffset: 0
+  lockY: 1
+  fixedY: 0
+  useSmoothFollow: 1
+  smoothSpeed: 10
 --- !u!1 &644106384
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,6 +829,7 @@ GameObject:
   - component: {fileID: 644106386}
   - component: {fileID: 644106385}
   - component: {fileID: 644106388}
+  - component: {fileID: 644106389}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -935,6 +955,29 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &644106389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644106384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92b00a6122dd0942a14b9738683b790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1728951882}
+  mode: 0
+  xOffset: 7
+  autoScrollSpeed: 3
+  smoothTime: 0.2
+  followPlayerY: 0
+  yoffset: 0
+  smoothTimeY: 0.3
+  minY: -5
+  maxY: 5
+  zPosition: -10
 --- !u!1 &1070081100
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070081102}
   - component: {fileID: 1070081101}
+  - component: {fileID: 1070081103}
   m_Layer: 0
   m_Name: FlowerSpawn
   m_TagString: Untagged
@@ -975,13 +1019,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070081100}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.19, y: -0.26, z: -8.402499}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070081103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070081100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efba40d5a7222d348aa5a9ab7b296b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 644106387}
+  xOffset: 13
+  lockY: 1
+  fixedY: 0
+  useSmoothFollow: 0
+  smoothSpeed: 10
 --- !u!1 &1247339467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,7 +1634,7 @@ Transform:
   m_GameObject: {fileID: 1728951877}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.556, y: 0.407, z: 0}
+  m_LocalPosition: {x: -7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1591,6 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 3
+  speed: 3
 --- !u!1 &1770446107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,6 +1665,7 @@ GameObject:
   - component: {fileID: 1770446110}
   - component: {fileID: 1770446109}
   - component: {fileID: 1770446108}
+  - component: {fileID: 1770446111}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Death
@@ -1718,13 +1782,31 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770446107}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.08, y: -4.41, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.10000038, y: -4.5, z: 8.402499}
+  m_LocalScale: {x: 20.425, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1770446111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770446107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efba40d5a7222d348aa5a9ab7b296b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 644106387}
+  xOffset: 0
+  lockY: 1
+  fixedY: 0
+  useSmoothFollow: 0
+  smoothSpeed: 10
 --- !u!1 &1826086956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,9 +1839,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 140283545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -393, y: 264}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 340, y: -58}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826086958
@@ -1866,10 +1948,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1728951882}
-  - {fileID: 1770446110}
   - {fileID: 585901679}
-  - {fileID: 644106387}
+  - {fileID: 1770446110}
   - {fileID: 1070081102}
+  - {fileID: 644106387}
   - {fileID: 205925774}
   - {fileID: 1434670565}
   - {fileID: 1334883414}
