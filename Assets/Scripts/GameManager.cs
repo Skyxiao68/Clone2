@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem; 
+using UnityEngine.EventSystems; 
+using UnityEngine.InputSystem.Layouts; 
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameStartUI; 
     [SerializeField] private GameObject shopUI; 
 
+    public PlayerInput playerInput; 
+
+
+
     private bool gameStarted = false; 
-    private bool gamePaused = false; 
+    private bool gameOver = false; 
+
+    public bool IsGameStarted => gameStarted; 
 
 
     void Start()
@@ -22,6 +31,20 @@ public class GameManager : MonoBehaviour
             gameOverUI.SetActive(false);
         }
 
+        if (gameStartUI != null)
+        {
+            gameStartUI.SetActive(true); 
+        }
+        
+        if (shopUI != null)
+        {
+            shopUI.SetActive(false); 
+        }
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         
     }
    private void Awake()
@@ -32,19 +55,128 @@ public class GameManager : MonoBehaviour
 
             
         }
+        else
+        {
+            Destroy(gameObject); 
+            return; 
+        }
 
-        
+        playerInput = GetComponent<PlayerInput>(); 
+        if(playerInput == null)
+        {
+            playerInput = FindAnyObjectByType<PlayerInput>(); 
+        }
 
-        Time.timeScale = 1f;
+
+
+        Time.timeScale = 0f;
 
     }
 
+
+    private void OnEnable()
+    {
+        if (playerInput != null)
+        {
+           playerInput.actions["jump"].performed += OnJumpPerformed; 
+
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (playerInput != null)
+        {
+           playerInput.actions["jump"].performed -= OnJumpPerformed; 
+
+        }
+    }
+
+    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    {
+        if (!gameStarted && !gameOver)
+        {
+            if (!IsPointedOverUI())
+            {
+                StartGame(); 
+            }
+
+        }
+    }
+
+    private bool IsPointedOverUI()
+    {
+        if (EventSystem.current == null )
+        {
+            return false; 
+
+        }
+
+        return EventSystem.current.IsPointerOverGameObject(); 
+    }
+    
+    public void StartGame()
+    {
+        if (gameStarted)
+        {
+            return; 
+        }
+            
+        gameStarted = true;
+
+        if(gameStartUI != null)
+        {
+            gameStartUI.SetActive(false); 
+        }   
+
+        Time.timeScale = 1f; 
+
+        Debug.Log("Game started"); 
+    }
+
+    public void OpenShop()
+    {
+        if (shopUI != null)
+        {
+
+            shopUI.SetActive(true); 
+
+            SkinShopUI shop = shopUI.GetComponent<SkinShopUI>(); 
+            if (shop != null)
+            {
+                shop.RefreshShop(); 
+            }
+            gameStartUI.SetActive(false); 
+        }
+
+        Time.timeScale = 0f;
+
+        
+    }
+
+    public void CloseShop()
+    {
+        if (shopUI != null)
+        {
+            shopUI.SetActive(false); 
+            gameStartUI.SetActive(true); 
+        }
+
+        Time.timeScale = 0f;
+
+    }
     public void GameOver()
     {
-        if (gameOverUI == null)
+        if (gameOver)
         {
-            gameOverUI = GameObject.Find("GameOverUI"); 
+            return; 
         }
+
+        gameOver = true; 
+
+
+
+        
 
         if (gameOverUI != null)
         {
@@ -52,7 +184,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GameOverUI not found in the scene"); 
+            gameOverUI = GameObject.Find("GameOverUI");
+            if (gameOverUI != null)
+            {
+                gameOverUI.SetActive(true);
+            }
+            else
+                    {
+                        Debug.LogError("GameOverUI not found in the scene"); 
+                    }
         }
 
         Time.timeScale = 0f; 
@@ -67,5 +207,6 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); 
+        
     }
 }

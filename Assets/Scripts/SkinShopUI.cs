@@ -8,9 +8,9 @@ public class SkinShopUI : MonoBehaviour
     public Transform buttonContainer;
     public GameObject skinButtonPrefab;
 
-    public PlayerVisual playerVisual; 
+    public PlayerVisual playerVisual;
 
-    private void Start()
+    private void OnEnable()
     {
         RefreshShop();
     }
@@ -27,13 +27,16 @@ public class SkinShopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var skin in SkinDatabase.AllSkins)
+        if (SkinDatabase.AllSkins != null && skinButtonPrefab != null)
         {
-            GameObject buttonGO = Instantiate(skinButtonPrefab, buttonContainer);
-            SkinButton button = buttonGO.GetComponent<SkinButton>();
-            if (button != null)
+            foreach (var skin in SkinDatabase.AllSkins)
             {
-                button.Setup(skin, this);
+                GameObject buttonGO = Instantiate(skinButtonPrefab, buttonContainer);
+                SkinButton button = buttonGO.GetComponent<SkinButton>();
+                if (button != null)
+                {
+                    button.Setup(skin, this);
+                }
             }
         }
     }
@@ -57,9 +60,9 @@ public class SkinShopUI : MonoBehaviour
         SkinManager.Instance.SelectSkin(skinId);
         RefreshShop();
 
-        if (playerVisual !=null)
+        if (playerVisual != null)
         {
-            playerVisual.ApplySelectedSkin(); 
+            playerVisual.ApplySelectedSkin();
         }
     }
 }
