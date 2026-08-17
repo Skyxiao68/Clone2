@@ -8,6 +8,8 @@ public class SkinButton : MonoBehaviour
     public TMP_Text priceText;
     public Button buyButton;
     public Button selectButton;
+    public Image skinImage;
+
 
     private string skinID;
     private SkinShopUI shopUI;
@@ -24,6 +26,17 @@ public class SkinButton : MonoBehaviour
         }
 
         nameText.text = skin.displayName;
+
+        if (skin.animationFrames != null && skin.animationFrames.Length > 0)
+        {
+            skinImage.sprite = skin.animationFrames[0];
+            skinImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            skinImage.enabled = false; 
+            Debug.LogWarning($"skin {skinID} has no animation frames, please check the skin data");
+        }
 
         if (skin.isUnlocked)
         {

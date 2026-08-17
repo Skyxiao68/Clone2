@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 完全冻结旋转
     }
 
     // Update is called once per frame
@@ -20,25 +21,37 @@ public class Player : MonoBehaviour
         {
             Debug.LogError($"player position is unknown！position = {transform.position}");
         }
+
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
         if (rb != null && (float.IsNaN(rb.linearVelocity.x) || float.IsNaN(rb.linearVelocity.y)))
         {
             Debug.LogError($"player velocity is unknown！velocity = {rb.linearVelocity}");
         }
+
         if (GameManager.Instance == null || !GameManager.Instance.IsGameStarted)
         {
             return;
         }
+    }
 
-        transform.position += Vector3.right * speed * Time.deltaTime;
+    void FixedUpdate()
+    {
+        if (GameManager.Instance == null || !GameManager.Instance.IsGameStarted)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
+
+        // 设置水平速度
+        rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
     }
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && GameManager.Instance != null && GameManager.Instance.IsGameStarted)
         {
-            rb.linearVelocity = Vector2.up * velocity;
-            ;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, velocity);
         }
     }
 
