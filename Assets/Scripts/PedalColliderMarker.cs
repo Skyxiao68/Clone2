@@ -4,12 +4,13 @@ public class PedalColliderMarker : MonoBehaviour
 {
     public static bool HasTouchedPedal = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            HasTouchedPedal= true;
-            Debug.Log("player has touched pedal");
+            HasTouchedPedal = true;
+            IncreaseScore.ResetBonus();
+            Debug.Log("Player touched pedal, bonus reset.");
         }
     }
 }

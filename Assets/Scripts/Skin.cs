@@ -1,6 +1,7 @@
-using System;
+using UnityEngine;
 
-[Serializable]
+
+[System.Serializable]
 public class Skin
 {
     public string id;          
@@ -8,6 +9,8 @@ public class Skin
     public int price;          
     public bool isUnlocked;    
     public bool isSelected;    
+
+    public Sprite[] animationFrames; 
 
     public Skin(string id, string displayName, int price, bool isUnlocked = false, bool isSelected = false)
     {
