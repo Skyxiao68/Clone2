@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
     private bool gameOver = false;
 
-    public int StartFrame {get; private set; }
+    public int StartFrame { get; private set; }
 
     public bool IsGameStarted => gameStarted;
 
@@ -69,12 +69,30 @@ public class GameManager : MonoBehaviour
     {
         if (!gameStarted && !gameOver)
         {
-            var jumpAction = playerInput?.actions["jump"];
-            if (jumpAction != null && jumpAction.WasPerformedThisFrame())
+            if(playerInput == null)
             {
+                Debug.LogWarning("PlayerInput is Null! Ensure PlayerInput component exsits and assigned");
+                return;
+            }
+
+            var jumpAction = playerInput?.actions["jump"];
+
+            if (jumpAction == null)
+            {
+               Debug.LogWarning("Jump action not found Check action name in the Input ACtions");
+               return; 
+            }
+
+            if (jumpAction.WasPressedThisFrame())
+            {
+                Debug.Log("Jump action detected"); 
                 if (!IsPointedOverUI())
                 {
-                    StartGame();
+                    StartGame(); 
+                }
+                else
+                {
+                    Debug.Log("Pointer over UI. skipping Start.");
                 }
             }
         }
@@ -98,20 +116,19 @@ public class GameManager : MonoBehaviour
         }
 
         gameStarted = true;
-        StartFrame = Time.frameCount; 
+        StartFrame = Time.frameCount;
 
-        GameObject player =  GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
         {
-             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-                if (rb !=null)
+            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+            if (rb != null)
             {
                 rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0f;
             }
         }
-
 
         if (gameStartUI != null)
         {
@@ -121,6 +138,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         Debug.Log("Game started");
+        SoundManager.Instance.PlayGameplayMusic(); 
+
     }
 
     public void OpenShop()
@@ -160,6 +179,8 @@ public class GameManager : MonoBehaviour
 
         gameOver = true;
 
+        SoundManager.Instance.PlayGameOver();
+
         if (gameOverUI != null)
         {
             gameOverUI.SetActive(true);
@@ -191,5 +212,14 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
