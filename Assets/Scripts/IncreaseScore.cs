@@ -6,7 +6,10 @@ public class IncreaseScore : MonoBehaviour
 
     public float f = 1f;
     public int normalScore = 1;
-    public int bonusScore = 2; 
+    public int baseBonus = 2; 
+
+    private static int currentBonus = -1; 
+    private static int staticBaseBonus = 2; 
     private float failXposition;
     private bool collected = false;
 
@@ -20,6 +23,11 @@ public class IncreaseScore : MonoBehaviour
     {
         failXposition = transform.position.x + f;  
 
+        if (currentBonus == -1)
+        {
+            currentBonus = baseBonus;
+            staticBaseBonus = baseBonus; 
+        }
 
     }
 
@@ -59,21 +67,22 @@ public class IncreaseScore : MonoBehaviour
         {
             collected = true;
 
+            int scoreToAdd;
             SoundManager.Instance.PlayHoopSuccess();
-
-            int scoreToAdd = normalScore;
 
             if (PedalColliderMarker.HasTouchedPedal)
             {
                 scoreToAdd = normalScore;
 
                 PedalColliderMarker.HasTouchedPedal = false; 
+                currentBonus = baseBonus; 
                 Debug.Log("Player touched pedal add only 1 point"); 
 
             }
             else
             {
-                scoreToAdd = bonusScore; 
+                scoreToAdd = currentBonus; 
+                currentBonus++ ;
                 Debug.Log("Player did not touch pedal add bonus points"); 
             }
 
@@ -110,6 +119,11 @@ public class IncreaseScore : MonoBehaviour
             GameManager.Instance.GameOver(); 
         }
 
+    }
+
+    public static void ResetBonus()
+    {
+        currentBonus = staticBaseBonus; 
     }
 
     private void OnDrawGizmos()

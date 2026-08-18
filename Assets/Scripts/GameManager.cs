@@ -1,31 +1,49 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
-using UnityEngine.EventSystems; 
-using UnityEngine.InputSystem.Layouts; 
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
 
-    public static GameManager Instance; 
+    [SerializeField]
+    private GameObject gameOverUI;
 
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private GameObject gameStartUI; 
-    [SerializeField] private GameObject shopUI; 
+    [SerializeField]
+    private GameObject gameStartUI;
 
-    public PlayerInput playerInput; 
+    [SerializeField]
+    private GameObject shopUI;
 
+    public PlayerInput playerInput;
 
+    private bool gameStarted = false;
+    private bool gameOver = false;
 
-    private bool gameStarted = false; 
-    private bool gameOver = false; 
+    public int StartFrame {get; private set; }
 
-    public bool IsGameStarted => gameStarted; 
+    public bool IsGameStarted => gameStarted;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null)
+        {
+            playerInput = FindAnyObjectByType<PlayerInput>();
+        }
+
+        Time.timeScale = 0f;
+    }
 
     void Start()
     {
-        
-
         if (gameOverUI != null)
         {
             gameOverUI.SetActive(false);
@@ -33,156 +51,122 @@ public class GameManager : MonoBehaviour
 
         if (gameStartUI != null)
         {
-            gameStartUI.SetActive(true); 
+            gameStartUI.SetActive(true);
         }
-        
+
         if (shopUI != null)
         {
-            shopUI.SetActive(false); 
+            shopUI.SetActive(false);
         }
 
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
         }
-        
-    }
-   private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this; 
-
-            
-        }
-        else
-        {
-            Destroy(gameObject); 
-            return; 
-        }
-
-        playerInput = GetComponent<PlayerInput>(); 
-        if(playerInput == null)
-        {
-            playerInput = FindAnyObjectByType<PlayerInput>(); 
-        }
-
-
-
-        Time.timeScale = 0f;
-
     }
 
-
-    private void OnEnable()
-    {
-        if (playerInput != null)
-        {
-           playerInput.actions["jump"].performed += OnJumpPerformed; 
-
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (playerInput != null)
-        {
-           playerInput.actions["jump"].performed -= OnJumpPerformed; 
-
-        }
-    }
-
-    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    private void Update()
     {
         if (!gameStarted && !gameOver)
         {
-            if (!IsPointedOverUI())
+            var jumpAction = playerInput?.actions["jump"];
+            if (jumpAction != null && jumpAction.WasPerformedThisFrame())
             {
-                StartGame(); 
+                if (!IsPointedOverUI())
+                {
+                    StartGame();
+                }
             }
-
         }
     }
 
     private bool IsPointedOverUI()
     {
-        if (EventSystem.current == null )
+        if (EventSystem.current == null)
         {
-            return false; 
-
+            return false;
         }
 
-        return EventSystem.current.IsPointerOverGameObject(); 
+        return EventSystem.current.IsPointerOverGameObject();
     }
-    
+
     public void StartGame()
     {
         if (gameStarted)
         {
-            return; 
+            return;
         }
-            
-        gameStarted = true;
 
-        if(gameStartUI != null)
+        gameStarted = true;
+        StartFrame = Time.frameCount; 
+
+        GameObject player =  GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
         {
-            gameStartUI.SetActive(false); 
-        }   
+             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+                if (rb !=null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+        }
+
+
+        if (gameStartUI != null)
+        {
+            gameStartUI.SetActive(false);
+        }
 
         Time.timeScale = 1f;
 
+        Debug.Log("Game started");
         SoundManager.Instance.PlayGameplayMusic(); 
 
-        Debug.Log("Game started"); 
     }
 
     public void OpenShop()
     {
         if (shopUI != null)
         {
+            shopUI.SetActive(true);
 
-            shopUI.SetActive(true); 
-
-            SkinShopUI shop = shopUI.GetComponent<SkinShopUI>(); 
+            SkinShopUI shop = shopUI.GetComponent<SkinShopUI>();
             if (shop != null)
             {
-                shop.RefreshShop(); 
+                shop.RefreshShop();
             }
-            gameStartUI.SetActive(false); 
+            gameStartUI.SetActive(false);
         }
 
         Time.timeScale = 0f;
-
-        
     }
 
     public void CloseShop()
     {
         if (shopUI != null)
         {
-            shopUI.SetActive(false); 
-            gameStartUI.SetActive(true); 
+            shopUI.SetActive(false);
+            gameStartUI.SetActive(true);
         }
 
         Time.timeScale = 0f;
-
     }
+
     public void GameOver()
     {
         if (gameOver)
         {
-            return; 
+            return;
         }
 
         gameOver = true;
 
-
         SoundManager.Instance.PlayGameOver();
-
 
         if (gameOverUI != null)
         {
-            gameOverUI.SetActive(true); 
+            gameOverUI.SetActive(true);
         }
         else
         {
@@ -192,23 +176,24 @@ public class GameManager : MonoBehaviour
                 gameOverUI.SetActive(true);
             }
             else
-                    {
-                        Debug.LogError("GameOverUI not found in the scene"); 
-                    }
+            {
+                Debug.LogError("GameOverUI not found in the scene");
+            }
         }
 
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
 
         if (Score.Instance != null)
         {
-            CurrencyManager.Instance.AddCurrency(Score.Instance.CurrentScore); 
-            Debug.Log($"Score this round {Score.Instance.CurrentScore} added to currency"); 
-        }   
+            CurrencyManager.Instance.AddCurrency(Score.Instance.CurrentScore);
+            Debug.Log($"Score this round {Score.Instance.CurrentScore} added to currency");
+        }
     }
 
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); 
-        
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+        );
     }
 }

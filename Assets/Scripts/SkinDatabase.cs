@@ -1,21 +1,32 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class SkinDatabase
 {
-    public static List<Skin> AllSkins = new List<Skin>
+    public static List<Skin> AllSkins = new List<Skin>();
+
+    static SkinDatabase()
     {
-        new Skin(
-            id: "default",
-            displayName: "Default Skin",
-            price: 0,
-            isUnlocked: true,
-            isSelected: true
-        ),
-        new Skin(id: "green", displayName: "Green Skin", price: 40),
-        new Skin(id: "blue", displayName: "Blue Skin", price: 20),
-        new Skin(id: "gold", displayName: "Gold Skin", price: 100),
-        new Skin(id: "purple", displayName: "Purple Skin", price: 150),
-    };
+        AddSkin("default", "Default Skin", 0, true, true);
+        AddSkin("blue", "Blue Skin", 20);
+        AddSkin("green", "Green Skin", 40);
+        AddSkin("purple", "Purple Skin", 60);
+        AddSkin("gold", "Gold Skin", 80);
+    }
+
+    private static void AddSkin(
+        string id,
+        string displayName,
+        int price,
+        bool isUnlocked = false,
+        bool isSelected = false
+    )
+    {
+        Skin skin = new Skin(id, displayName, price, isUnlocked, isSelected);
+
+        skin.animationFrames = Resources.LoadAll<Sprite>("Skins/" + id);
+        AllSkins.Add(skin);
+    }
 
     public static Skin GetSkinByID(string id)
     {
