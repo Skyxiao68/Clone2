@@ -383,23 +383,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1510
-      height: 853
-    m_Scale: {x: 0.98307294, y: 0.98307294}
-    m_Translation: {x: 755, y: 426.5}
+      width: 905.2001
+      height: 433.8
+    m_Scale: {x: 0.5020833, y: 0.5020833}
+    m_Translation: {x: 452.60004, y: 216.9}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -768
-      y: -433.8437
-      width: 1536
-      height: 867.6874
+      x: -901.4441
+      y: -432
+      width: 1802.8882
+      height: 864
     m_MinimalGUI: 1
-  m_defaultScale: 0.98307294
-  m_LastWindowPixelSize: {x: 1510, y: 874}
+  m_defaultScale: 0.5020833
+  m_LastWindowPixelSize: {x: 905.2001, y: 454.8}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -985,9 +985,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0.2633365, y: -0.44957706, z: 0.04010416}
+    m_Target: {x: 0.35901624, y: -0.39680424, z: 0.15132299}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 0.2633365, y: -0.44957706, z: 0.04010416}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1037,9 +1037,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 5.9895763
+    m_Target: 7.381088
     speed: 2
-    m_Value: 10
+    m_Value: 5.9895763
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1188,7 +1188,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 9af80000
     m_LastClickedID: 63642
-    m_ExpandedIDs: 00000000a4f40000
+    m_ExpandedIDs: 00000000b8f40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1217,7 +1217,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 00000000
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a4f40000
+    m_ExpandedIDs: 00000000b8f40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

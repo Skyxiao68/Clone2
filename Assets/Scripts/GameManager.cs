@@ -129,7 +129,9 @@ public class GameManager : MonoBehaviour
             gameStartUI.SetActive(false); 
         }   
 
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
+
+        SoundManager.Instance.PlayGameplayMusic(); 
 
         Debug.Log("Game started"); 
     }
@@ -172,11 +174,11 @@ public class GameManager : MonoBehaviour
             return; 
         }
 
-        gameOver = true; 
+        gameOver = true;
 
 
+        SoundManager.Instance.PlayGameOver();
 
-        
 
         if (gameOverUI != null)
         {

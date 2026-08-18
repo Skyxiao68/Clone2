@@ -60,6 +60,7 @@ public class SkinShopUI : MonoBehaviour
 
         if (success)
         {
+            SoundManager.Instance.PlayPurchase();
             RefreshShop();
         }
         else

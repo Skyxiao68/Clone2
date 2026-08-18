@@ -59,6 +59,8 @@ public class IncreaseScore : MonoBehaviour
         {
             collected = true;
 
+            SoundManager.Instance.PlayHoopSuccess();
+
             int scoreToAdd = normalScore;
 
             if (PedalColliderMarker.HasTouchedPedal)
