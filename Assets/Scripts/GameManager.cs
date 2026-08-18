@@ -138,6 +138,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         Debug.Log("Game started");
+        SoundManager.Instance.PlayGameplayMusic(); 
+
     }
 
     public void OpenShop()
@@ -176,6 +178,8 @@ public class GameManager : MonoBehaviour
         }
 
         gameOver = true;
+
+        SoundManager.Instance.PlayGameOver();
 
         if (gameOverUI != null)
         {
