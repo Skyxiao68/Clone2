@@ -27,7 +27,7 @@ public class ObstcaleSpawn : MonoBehaviour
                 transform.position.z
             );
 
-            float checkRadius = 0.5f;
+            float checkRadius = 2f;
             Collider2D hit = Physics2D.OverlapCircle(spawnPos, checkRadius);
             if (hit == null)
             {
