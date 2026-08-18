@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
     private bool gameOver = false;
 
+    public int StartFrame {get; private set; }
+
     public bool IsGameStarted => gameStarted;
 
     private void Awake()
@@ -96,6 +98,20 @@ public class GameManager : MonoBehaviour
         }
 
         gameStarted = true;
+        StartFrame = Time.frameCount; 
+
+        GameObject player =  GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+                if (rb !=null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+        }
+
 
         if (gameStartUI != null)
         {

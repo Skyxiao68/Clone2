@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 完全冻结旋转
+       
     }
 
     // Update is called once per frame
@@ -51,6 +51,12 @@ public class Player : MonoBehaviour
     {
         if (ctx.performed && GameManager.Instance != null && GameManager.Instance.IsGameStarted)
         {
+           if (Time.frameCount == GameManager.Instance.StartFrame)
+            {
+                return;
+            }
+
+            
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, velocity);
         }
     }
